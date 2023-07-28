@@ -6,12 +6,13 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "lignevente" )
+
 public class LigneVente  extends AbstractEntity{
 
     @ManyToOne

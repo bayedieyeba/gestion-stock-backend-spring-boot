@@ -3,7 +3,7 @@ package com.baye.gestiondestock.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.management.relation.Role;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -37,10 +37,10 @@ public class Utilisateur extends AbstractEntity {
     @Column(name = "photo")
     private String photo;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "identreprise")
     private Entreprise entreprise;
 
     @OneToMany(mappedBy = "utilisateur")
-    private List<Role> roles;
+    private List<Roles> roles;
 }

@@ -23,25 +23,27 @@ public class CategoryDto {
     @JsonIgnore
     private List<Article> articles;
 
-    public CategoryDto fromEntity(Category category){
+    public static CategoryDto fromEntity(Category category){
         if(category == null){
             return  null;
         }
         return CategoryDto.builder()
                 .id(category.getId())
+                .idEntreprise(category.getIdEntreprise())
                 .codeCategory(category.getCodeCategory())
                 .designation(category.getDesignation())
                 .build();
 
     }
 
-    public Category toEntity(CategoryDto categoryDto){
+    public static Category toEntity(CategoryDto categoryDto){
         if(categoryDto == null){
             return null;
         }
 
         Category category = new Category();
         category.setId(categoryDto.getId());
+        category.setIdEntreprise(category.getIdEntreprise());
         category.setCodeCategory(categoryDto.getCodeCategory());
         category.setDesignation(categoryDto.getDesignation());
 

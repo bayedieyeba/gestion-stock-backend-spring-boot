@@ -1,13 +1,16 @@
 package com.baye.gestiondestock.dto;
-import com.baye.gestiondestock.model.Adresse;
-import com.baye.gestiondestock.model.Category;
+import com.baye.gestiondestock.model.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+@Getter
+@Setter
 @Builder
-@Data
 public class ArticleDto {
 
     private Integer id;
@@ -28,31 +31,53 @@ public class ArticleDto {
 
     private CategoryDto categoryDto;
 
-    public  AdresseDto fromEntity(Adresse adresse){
+    private List<LigneVente> ligneVentes ;
 
-        if(adresse ==null){
+    private List<LigneCommandeClient> ligneCommandeClients;
+
+    private List<LigneCommandeFournisseur> ligneCommandeFournisseurs ;
+
+    private List<MvtStk> mvtStks;
+
+    public  static ArticleDto fromEntity(Article article){
+
+        if(article ==null){
             return null ;
         }
-        return AdresseDto.builder()
-                .adresse1(adresse.getAdresse1())
-                .adresse2(adresse.getAdresse2())
-                .codePostale(adresse.getCodePostale())
-                .ville(adresse.getVille())
-                .pays(adresse.getPays())
+        return ArticleDto.builder()
+                .id(article.getId())
+                .codeArticle(article.getCodeArticle())
+                .designation(article.getDesignation())
+                .ligneCommandeClients(article.getLigneCommandeClients())
+                .ligneCommandeFournisseurs(article.getLigneCommandeFournisseurs())
+                .idEntreprise(article.getIdEntreprise())
+                .mvtStks(article.getMvtStks())
+                .ligneVentes(article.getLigneVentes())
+                .photo(article.getPhoto())
+                .prixUnitaireHt(article.getPrixUnitaireHt())
+                .prixUnitaireTtc(article.getPrixUnitaireTtc())
+                .tauxTva(article.getTauxTva())
+                .categoryDto(CategoryDto.fromEntity(article.getCategory()))
                 .build();
     }
 
-    public Adresse toEntity(AdresseDto adresseDto) {
-        if(adresseDto == null) {
+    public static Article toEntity(ArticleDto articleDto) {
+        if(articleDto == null) {
             return null ;
         }
-        Adresse adresse = new Adresse() ;
-        adresse.setAdresse1(adresse.getAdresse1());
-        adresse.setAdresse2(adresseDto.getAdresse2());
-        adresse.setCodePostale(adresseDto.getCodePostale());
-        adresse.setVille(adresseDto.getVille());
-        adresse.setPays(adresseDto.getPays());
-
-        return adresse ;
+        Article article = new Article() ;
+        article.setCodeArticle(articleDto.getCodeArticle());
+        article.setDesignation(articleDto.getDesignation());
+        article.setPhoto(articleDto.getPhoto());
+        article.setIdEntreprise(articleDto.getIdEntreprise());
+        article.setMvtStks(articleDto.getMvtStks());
+        article.setLigneCommandeClients(articleDto.getLigneCommandeClients());
+        article.setLigneCommandeFournisseurs(articleDto.getLigneCommandeFournisseurs());
+        article.setLigneVentes(articleDto.getLigneVentes());
+        article.setPrixUnitaireHt(articleDto.getPrixUnitaireHt());
+        article.setPrixUnitaireTtc(articleDto.getPrixUnitaireTtc());
+        article.setTauxTva(articleDto.getTauxTva());
+        article.setCategory(CategoryDto.toEntity(articleDto.getCategoryDto()));
+        return article ;
     }
 }
