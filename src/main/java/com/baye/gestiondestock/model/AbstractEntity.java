@@ -1,10 +1,8 @@
 package com.baye.gestiondestock.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -17,7 +15,6 @@ import java.time.Instant;
 @NoArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-
 public class AbstractEntity  implements Serializable {
 
     @Id
@@ -25,14 +22,14 @@ public class AbstractEntity  implements Serializable {
     private Integer id;
 
     //@CreatedDate
-    @Column(name = "createDate" )
+    @Column(name = "createDate",nullable = false,updatable = false )
     private Instant creationDate;
 
     //
     @Column(name = "lastModifiedDate")
     private Instant lastUpdateDate;
 
-    @PrePersist
+   /* @PrePersist
     void prePersist(){
         creationDate = Instant.now();
     }
@@ -40,5 +37,5 @@ public class AbstractEntity  implements Serializable {
     @PreUpdate
     void preUpdate(){
         lastUpdateDate = Instant.now();
-    }
+    }*/
 }

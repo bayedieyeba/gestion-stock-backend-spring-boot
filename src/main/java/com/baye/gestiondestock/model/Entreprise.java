@@ -1,15 +1,13 @@
 package com.baye.gestiondestock.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -33,6 +31,9 @@ public class Entreprise extends AbstractEntity {
 
     @Column(name = "numtel")
     private String numTel;
+
+    @Embedded
+    private Adresse adresse;
 
     @Column(name = "siteweb")
     private String siteWeb;
