@@ -1,6 +1,7 @@
 package com.baye.gestiondestock.dto;
 
 import com.baye.gestiondestock.model.CommandeClient;
+import com.baye.gestiondestock.model.EtatCommande;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +18,8 @@ public class CommandeClientDto {
 
     private Instant dateCommande;
 
+    private EtatCommande etatCommande;
+
     private ClientDto client;
 
     private Integer idEntreprise;
@@ -32,6 +35,7 @@ public class CommandeClientDto {
         return CommandeClientDto.builder()
                 .id(commandeClient.getId())
                 .code(commandeClient.getCode())
+                .etatCommande(commandeClient.getEtatCommande())
                 .dateCommande(commandeClient.getDateCommande())
                 .idEntreprise(commandeClient.getIdEntreprise())
                 .client(ClientDto.fromEntity(commandeClient.getClient()))
@@ -49,7 +53,12 @@ public class CommandeClientDto {
         commandeClient.setIdEntreprise(commandeClientDto.getIdEntreprise());
         commandeClient.setDateCommande(commandeClientDto.getDateCommande());
         commandeClient.setDateCommande(commandeClientDto.getDateCommande());
+        commandeClient.setEtatCommande(commandeClientDto.getEtatCommande());
 
         return commandeClient ;
+    }
+
+    public  boolean isCommandeLivree(){
+        return EtatCommande.LIVREE.equals(this.etatCommande);
     }
 }
