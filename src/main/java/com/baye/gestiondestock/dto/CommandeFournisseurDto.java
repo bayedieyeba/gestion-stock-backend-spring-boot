@@ -1,6 +1,8 @@
 package com.baye.gestiondestock.dto;
 
 import com.baye.gestiondestock.model.CommandeFournisseur;
+import com.baye.gestiondestock.model.EtatCommande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,6 +24,9 @@ public class CommandeFournisseurDto {
 
     private Integer idEntreprise;
 
+    private EtatCommande etatCommande;
+
+    @JsonIgnore
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurDtos;
 
 
@@ -34,6 +39,7 @@ public class CommandeFournisseurDto {
         return CommandeFournisseurDto.builder()
                 .id(commandeFournisseur.getId())
                 .code(commandeFournisseur.getCode())
+                .etatCommande(commandeFournisseur.getEtatCommande())
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .fournisseur(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
                 .idEntreprise(commandeFournisseur.getIdEntreprise())
@@ -49,6 +55,7 @@ public class CommandeFournisseurDto {
         commandeFournisseur.setCode(commandeFournisseurDto.getCode());
         commandeFournisseur.setDateCommande(commandeFournisseurDto.getDateCommande());
         commandeFournisseur.setIdEntreprise(commandeFournisseurDto.getIdEntreprise());
+        commandeFournisseur.setEtatCommande(commandeFournisseurDto.getEtatCommande());
         commandeFournisseur.setFournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseur()));
 
 

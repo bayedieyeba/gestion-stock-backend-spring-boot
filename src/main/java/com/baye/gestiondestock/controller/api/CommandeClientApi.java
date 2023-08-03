@@ -1,6 +1,7 @@
 package com.baye.gestiondestock.controller.api;
 
 import com.baye.gestiondestock.dto.CommandeClientDto;
+import com.baye.gestiondestock.dto.LigneCommandeClientDto;
 import com.baye.gestiondestock.model.EtatCommande;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,6 +71,27 @@ public interface CommandeClientApi {
     ResponseEntity<CommandeClientDto> updateClient(@PathVariable("idCommande") Integer idCommande,
                                                              @PathVariable("idClient") Integer idClient
                                                              );
+
+    @PatchMapping(value = APP_ROOT+ "/commandesclients/update/article/{idLigneCommande}/{idArticle}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Enregistrer un article", description = "Cette méthode permet d'enregistrer ou modifier un article",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ), @ApiResponse(responseCode = "400", description = "L'objet article n'est pas valide")
+            }
+    )
+    @Hidden
+    ResponseEntity<CommandeClientDto> updateArticle(@PathVariable("idCommande") Integer idCommande,
+                                    @PathVariable("idLigneCommande")Integer idLigneCommande,
+                                    @PathVariable("idArticle")Integer idArticle);
+
+
+    @DeleteMapping(value = APP_ROOT+ "/commandesclients/delete/article/{idCommande}/{idLigneCommande}")
+    ResponseEntity<CommandeClientDto> deleteArticle(@PathVariable("idCommande") Integer idCommande,@PathVariable("idLigneCommande") Integer idLigneCommande);
+
+    @GetMapping(value = APP_ROOT+ "/commandesclients/ligneCommande/{idCommande}")
+    ResponseEntity<List<LigneCommandeClientDto>> findAllLigneCommandesClientByCommandeClientId(@PathVariable("idCommande") Integer idCommande);
     @GetMapping(value = APP_ROOT+"/commandesclients/{idCommandeClient}",produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Rechercher un article par ID", description = "Cette méthode permet de chercher un article par son ID")
     @ApiResponses(value = {

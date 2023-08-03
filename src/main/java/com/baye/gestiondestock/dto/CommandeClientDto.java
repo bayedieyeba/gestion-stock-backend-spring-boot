@@ -2,6 +2,7 @@ package com.baye.gestiondestock.dto;
 
 import com.baye.gestiondestock.model.CommandeClient;
 import com.baye.gestiondestock.model.EtatCommande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ public class CommandeClientDto {
 
     private Integer idEntreprise;
 
-
+    @JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClientDtos;
 
     public static CommandeClientDto fromEntity(CommandeClient commandeClient){

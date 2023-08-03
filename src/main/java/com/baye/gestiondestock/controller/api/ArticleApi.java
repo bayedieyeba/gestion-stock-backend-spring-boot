@@ -1,6 +1,9 @@
 package com.baye.gestiondestock.controller.api;
 
 import com.baye.gestiondestock.dto.ArticleDto;
+import com.baye.gestiondestock.dto.LigneCommandeClientDto;
+import com.baye.gestiondestock.dto.LigneCommandeFournisseurDto;
+import com.baye.gestiondestock.dto.LigneVenteDto;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -50,6 +53,18 @@ public interface ArticleApi {
             @ApiResponse(responseCode = "200", description = "La liste des articles / Une liste vide" )
     })
     List<ArticleDto> findAll();
+
+    @GetMapping(value = APP_ROOT+"/article/historique/vente/{idArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneVenteDto> findHistoriqueVentes(@PathVariable("idArticle") Integer idArticle);
+
+    @GetMapping(value = APP_ROOT+"/article/historique/commandeclient/{idArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeClientDto> findHistoriqueCommandeClient(@PathVariable("idArticle") Integer idArticle);
+
+    @GetMapping(value = APP_ROOT+"/article/historique/commandefournissuer/{idArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(@PathVariable("idArticle") Integer idArticle);
+
+    @GetMapping(value = APP_ROOT+"/article/filter/category/{idCategory}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<ArticleDto> findAllArticleByCategory(@PathVariable("idCategory") Integer idCategory);
 
     @DeleteMapping(value = APP_ROOT+"/article/delete/{idArticle}")
     @Operation(summary = "Supprimer un article", description = "Cette méthode permet de supprimer un article par ID")

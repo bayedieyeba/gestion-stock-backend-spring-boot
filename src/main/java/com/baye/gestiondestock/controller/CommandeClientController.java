@@ -2,6 +2,7 @@ package com.baye.gestiondestock.controller;
 
 import com.baye.gestiondestock.controller.api.CommandeClientApi;
 import com.baye.gestiondestock.dto.CommandeClientDto;
+import com.baye.gestiondestock.dto.LigneCommandeClientDto;
 import com.baye.gestiondestock.model.EtatCommande;
 import com.baye.gestiondestock.services.CommandeClientService;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,21 @@ public class CommandeClientController implements CommandeClientApi {
     @Override
     public ResponseEntity<CommandeClientDto> updateClient(Integer idCommande, Integer idClient) {
         return ResponseEntity.ok(commandeClientService.updateClient(idCommande,idClient));
+    }
+
+    @Override
+    public ResponseEntity<CommandeClientDto> updateArticle(Integer idCommande, Integer idLigneCommande, Integer idArticle) {
+        return ResponseEntity.ok(commandeClientService.updateArticle(idCommande,idLigneCommande,idArticle));
+    }
+
+    @Override
+    public ResponseEntity<CommandeClientDto> deleteArticle(Integer idCommande, Integer idLigneCommande) {
+        return ResponseEntity.ok(commandeClientService.deleteArticle(idCommande,idLigneCommande));
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeClientDto>> findAllLigneCommandesClientByCommandeClientId(Integer idCommande) {
+        return ResponseEntity.ok(commandeClientService.findAllLigneCommandesClientByCommandeClientId(idCommande));
     }
 
     @Override
